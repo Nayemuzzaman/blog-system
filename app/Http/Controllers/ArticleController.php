@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ArticleController extends Controller
 {
-    public function index()
+    public function index(): View
     {
-        //
+        $articles = Article::orderByDesc('updated_at')->get();
+
+        return view('articles.index', compact('articles'));
     }
 
     public function create()
@@ -26,9 +30,9 @@ class ArticleController extends Controller
         //
     }
 
-    public function show(string $article)
+    public function show(Article $article): View
     {
-        //
+        return view('articles.show', compact('article'));
     }
 
     public function edit(string $article)
